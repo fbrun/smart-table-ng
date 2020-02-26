@@ -263,7 +263,6 @@ class StPaginationDirective {
     ngOnInit() {
         this._directive = paginationDirective({ table: this.table });
         this._directive.onSummaryChange(({ page, size, filteredCount }) => {
-            console.log('StPaginationDirective onSummaryChange : ', { page, size, filteredCount });
             let /** @type {?} */ goToOne = false;
             this.page = page;
             // Il faut retourner sur la première page au besoin

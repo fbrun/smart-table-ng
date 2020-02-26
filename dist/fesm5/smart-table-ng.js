@@ -300,7 +300,6 @@ var StPaginationDirective = /** @class */ (function () {
         this._directive = paginationDirective({ table: this.table });
         this._directive.onSummaryChange(function (_a) {
             var page = _a.page, size = _a.size, filteredCount = _a.filteredCount;
-            console.log('StPaginationDirective onSummaryChange : ', { page: page, size: size, filteredCount: filteredCount });
             var /** @type {?} */ goToOne = false;
             _this.page = page;
             // Il faut retourner sur la première page au besoin
