@@ -11,6 +11,8 @@ export declare class StPaginationDirective<T> implements OnInit, OnDestroy {
     ngOnDestroy(): void;
     readonly lowerBoundIndex: number;
     readonly higherBoundIndex: number;
+    readonly pageCount: number;
+    readonly pages: number[];
     selectPage(p: number): void;
     selectNextPage(): void;
     selectPreviousPage(): void;

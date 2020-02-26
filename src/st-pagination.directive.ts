@@ -25,9 +25,17 @@ export class StPaginationDirective<T> implements OnInit, OnDestroy {
     ngOnInit() {
         this._directive = slice({table: this.table});
         this._directive.onSummaryChange(({page, size, filteredCount}: SummaryOutput) => {
+            let goToOne = false;
             this.page = page;
+            // Il faut retourner sur la première page au besoin
+            if ((this.size !== size || this.length !== filteredCount) && this.page > 1) {
+                goToOne = true;
+            }
             this.size = size;
             this.length = filteredCount;
+            if (goToOne) {
+                this.selectPage(1);
+            }
         });
     }
 
@@ -41,6 +49,14 @@ export class StPaginationDirective<T> implements OnInit, OnDestroy {
 
     get higherBoundIndex(): number {
         return Math.min(this.page * this.size - 1, this.length - 1);
+    }
+
+    get pageCount(): number {
+        return this.size ? Math.ceil(this.length / this.size) : 1;
+    }
+
+    get pages(): number[] {
+        return Array.from({ length: this.pageCount }, (v, k) => k + 1);
     }
 
     selectPage(p: number): void {

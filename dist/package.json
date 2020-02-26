@@ -16,7 +16,14 @@
     "test:watch": "karma start karma.conf.js --single-run false",
     "pack:lib": "npm run build && npm pack ./dist",
     "publish:lib": "npm run build && npm publish ./dist",
-    "publish:lib:next": "npm run build && npm publish --tag next ./dist"
+    "publish:lib:next": "npm run build && npm publish --tag next ./dist",
+    "********************** PACK **********************": "",
+    "pack-lib": "rm -f smart-table-ng-*.tgz && npm pack ./dist",
+    "pack:dev": "npm run build && npm run pack-lib",
+    "pack:release": "npm run pack-lib && git add smart-table-ng-*.tgz",
+    "********************** CREATE NEW VERSION **********************": "",
+    "bump": "bump --tag --push --all",
+    "version": "npm run build && npm run pack:release"
   },
   "author": "Laurent RENARD",
   "repository": {

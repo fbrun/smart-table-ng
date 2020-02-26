@@ -300,9 +300,18 @@
             this._directive = smartTableCore.paginationDirective({ table: this.table });
             this._directive.onSummaryChange(function (_a) {
                 var page = _a.page, size = _a.size, filteredCount = _a.filteredCount;
+                console.log('StPaginationDirective onSummaryChange : ', { page: page, size: size, filteredCount: filteredCount });
+                var /** @type {?} */ goToOne = false;
                 _this.page = page;
+                // Il faut retourner sur la première page au besoin
+                if ((_this.size !== size || _this.length !== filteredCount) && _this.page > 1) {
+                    goToOne = true;
+                }
                 _this.size = size;
                 _this.length = filteredCount;
+                if (goToOne) {
+                    _this.selectPage(1);
+                }
             });
         };
         /**
@@ -330,6 +339,26 @@
              */
             function () {
                 return Math.min(this.page * this.size - 1, this.length - 1);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StPaginationDirective.prototype, "pageCount", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.size ? Math.ceil(this.length / this.size) : 1;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(StPaginationDirective.prototype, "pages", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return Array.from({ length: this.pageCount }, function (v, k) { return k + 1; });
             },
             enumerable: true,
             configurable: true
